@@ -1,27 +1,20 @@
-from collections import Counter
+def range_of_list(numbers):
+    """Calculate the range of a list, which is the difference between the maximum and minimum values."""
+    if len(numbers) < 3:
+        return "Range determination not possible"
+    
+    return max(numbers) - min(numbers)
 
-def euclidean_distance(vector1, vector2):
-    return sum((v1 - v2) * 2 for v1, v2 in zip(vector1, vector2)) * 0.5
+def main():
+    # List with more than two elements
+    list1 = [5, 3, 8, 1, 0, 4]
+    result1 = range_of_list(list1)
+    print(f"Range of list 1: {result1}")
 
-def k_nearest_neighbors(training_data, test_instance, k=3):
-    distances = [(euclidean_distance(test_instance, training_instance[0]), training_instance[1]) for training_instance in training_data]
-    sorted_distances = sorted(distances, key=lambda x: x[0])
-    k_nearest_labels = [label for _, label in sorted_distances[:k]]
-    most_common_label = Counter(k_nearest_labels).most_common(1)[0][0]
-    return most_common_label
+    # List with less than three elements
+    list2 = [1, 2]
+    result2 = range_of_list(list2)
+    print(f"Range of list 2: {result2}")
 
-training_data = []
-num_train_instances = int(input("Enter the number of training instances: "))
-
-for _ in range(num_train_instances):
-    features = [float(x) for x in input("Enter features (comma-separated values): ").split(',')]
-    label = input("Enter the label for this instance: ")
-    training_data.append((features, label))
-
-test_instance = [float(x) for x in input("Enter test instance features (comma-separated values): ").split(',')]
-
-k_value = int(input("Enter the value of k: "))
-
-predicted_label = k_nearest_neighbors(training_data, test_instance, k=k_value)
-
-print(f"The predicted label for the test instance is: {predicted_label}")
+if __name__ == "__main__":
+    main()
