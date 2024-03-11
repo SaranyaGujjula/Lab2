@@ -26,7 +26,7 @@ def calculate_probability(data, column_name, condition):
 
 if __name__ == "__main__":
     # Load data and set column names
-    df = load_data('Lab_Session1_Data.xlsx', usecols=range(5))
+    df = load_data("C:\Users\Lenovo\Downloads\Lab Session1 Data.xlsx", usecols=range(5))
     df.columns = ['col1', 'col2', 'col3', 'col4', 'col5']
 
     # Extract matrices A and C
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     print(df)
 
     # Load additional data from another sheet
-    df1 = load_data("C:\\Users\\mvy48\\OneDrive\\Desktop\\vscodeprograms\\ml_labsessions\\Lab_Session1_Data.xlsx", sheet_name=1)
+    df1 = load_data("C:\Users\Lenovo\OneDrive\Documents\Lab Session1 Data.xlsx", sheet_name=1)
     
     # Calculate and print mean and variance for the 'Price' column in df1
     calculate_statistics(df1)
