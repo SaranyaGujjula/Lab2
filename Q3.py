@@ -1,22 +1,46 @@
-def get_unique_labels(data):
-    return list(set(data))
+def matrix_multiplication(matrix, exponent):
+    """ Perform matrix multiplication with an exponent. """
+    # Check if the input matrix is square
+    if not is_square(matrix):
+        raise ValueError("Input matrix must be square")
 
+    # Initialize the result matrix with zeros
+    result = [[0] * len(matrix) for _ in range(len(matrix))]
 
-def label_encoding(data, labels):
-    label_mapping = {label: index for index, label in enumerate(labels)}
-    encoded_data = [label_mapping[value] for value in data]
-    return encoded_data
+    # Perform matrix multiplication
+    for i in range(len(matrix)):
+        for j in range(len(matrix)):
+            for k in range(len(matrix)):
+                # Multiply each element and raise to the specified exponent
+                result[i][j] += matrix[i][k] * matrix[k][j] ** exponent
 
+    return result
 
-def categorical_to_numeric(data):
-    unique_labels = get_unique_labels(data)
-    numeric_data = label_encoding(data, unique_labels)
-    return numeric_data
+def is_square(matrix):
+    """Check if a matrix is square."""
+    return all(len(row) == len(matrix) for row in matrix)
 
+def matrix_inputing():
+    """Take user input to create a square matrix."""
+    size = int(input("Enter the size for the square matrix: "))
+    # Create a square matrix based on user input
+    matrix = [[int(val) for val in input(f"Enter values for row {i + 1} ").split()] for i in range(size)]
+    return matrix
 
-categorical_data = input("Enter categorical data (comma-separated values): ").split(',')
+def power_matrix():
+    """Take user input for the exponent to raise each element of the matrix to."""
+    return int(input("Enter a number to multiply the matrix: "))
 
-numeric_data = categorical_to_numeric(categorical_data)
+if __name__ == "__main__":
+    try:
+        # Get user input for the matrix and exponent
+        matrixA = matrix_inputing()
+        exponent_m = power_matrix()
 
-print(f"Original Categorical Data: {categorical_data}")
-print(f"Numeric Data: {numeric_data}")
+        # Perform matrix multiplication and display the result
+        result_matrix = matrix_multiplication(matrixA, exponent_m)
+        print(f"Resultant Matrix:\n{result_matrix}")
+
+    except ValueError as e:
+        # Handle ValueError if the input matrix is not square
+        print(f"Error: {e}")
