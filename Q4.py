@@ -1,20 +1,35 @@
-def get_unique_labels(data):
-    return list(set(data))
+def count_char(input_str):
+    """Count the occurrences of alphabetic characters in a given string."""
+    counts = {}
 
+    # Iterate through each character in the input string
+    for char in input_str:
+        if char.isalpha():
+            char_lower = char.lower()
+            # Update the counts dictionary for each alphabetic character
+            counts[char_lower] = counts.get(char_lower, 0) + 1
 
-def one_hot_encoding(data, unique_labels):
-    one_hot_matrix = [[1 if value == label else 0 for label in unique_labels] for value in data]
-    return one_hot_matrix
+    # Check if there are any counts
+    if counts:
+        # Find the maximum count value
+        max_count = max(counts.values())
+        # Get the character(s) with the highest count
+        highest_count_chars = [char for char, count in counts.items() if count == max_count]
 
+        return highest_count_chars, max_count
+    else:
+        # Return None if there are no counts
+        return None, 0
 
-def categorical_to_numeric_one_hot(data):
-    unique_labels = get_unique_labels(data)
-    one_hot_matrix = one_hot_encoding(data, unique_labels)
-    return one_hot_matrix
+if __name__ == "__main__":
+    # Get user input for the string
+    input_string = input("Enter a string: ")
+    # Call the count_char function to get the results
+    highest_count_chars, max_count = count_char(input_string)
 
-categorical_data = input("Enter categorical data (comma-separated values): ").split(',')
-
-one_hot_matrix = categorical_to_numeric_one_hot(categorical_data)
-
-print(f"Original Categorical Data: {categorical_data}")
-print(f"One-Hot Encoded Matrix: {one_hot_matrix}")
+    # Display the results
+    if highest_count_chars:
+        print(f"Character(s) that are/is repeated the most: {', '.join(highest_count_chars)}")
+        print(f"Occurrence count: {max_count}")
+    else:
+        print("Error")
