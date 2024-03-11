@@ -1,19 +1,29 @@
-def euclidean_distance(vector1, vector2):
-    assert len(vector1) == len(vector2), "Vectors must have the same dimension"
-    sum_squared_diff = sum((v1 - v2) ** 2 for v1, v2 in zip(vector1, vector2))
-    return sum_squared_diff
+def find_pairs_with_sum(numbers, sum):
+    """Find pairs of numbers in the given list that add up to the specified sum."""
+    # Create a set to keep track of visited numbers
+    visited = set() 
+    count = 0
 
+    # Iterate through each number in the list
+    for number in numbers:
+        # Calculate the difference needed to reach the target sum
+        difference = sum - number
 
-def manhattan_distance(vector1, vector2):
-    assert len(vector1) == len(vector2), "Vectors must have the same dimension"
-    sum_absolute_diff = sum((v1 - v2) if v1 >= v2 else (v2 - v1) for v1, v2 in zip(vector1, vector2))
-    return sum_absolute_diff
+        # Check if the difference is in the visited set
+        if difference in visited:
+            # Increment the count and print the pairs
+            count += 1
+            print(f"Pairs that give sum as {sum}: ({number}, {difference})")
 
-vector_a = [float(x) for x in input("Enter vector A (comma-separated values): ").split(',')]
-vector_b = [float(x) for x in input("Enter vector B (comma-separated values): ").split(',')]
+        # Add the current number to the visited set
+        visited.add(number)
 
-euclidean_result = euclidean_distance(vector_a, vector_b)
-manhattan_result = manhattan_distance(vector_a, vector_b)
+    # Return the count of pairs
+    return count
 
-print(f"Euclidean Distance: {euclidean_result}")
-print(f"Manhattan Distance: {manhattan_result}")
+if __name__ == "__main__":
+    # Example usage with a list of numbers and a target sum
+    numbers = [2, 7, 4, 1, 3, 6]
+    target_sum = 10
+    result = find_pairs_with_sum(numbers, target_sum)
+    print(f"Number of pairs with sum {target_sum}: {result}")
